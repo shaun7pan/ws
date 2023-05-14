@@ -6,15 +6,16 @@ use std::convert::TryFrom;
 
 #[derive(Serialize, Debug, Clone, sqlx::FromRow)]
 pub struct Course {
-    pub teacher_id: i32,
+    pub teacher_id: Option<i32>,
     pub id: i32,
-    pub name: String,
+    pub name: Option<String>,
     pub time: Option<NaiveDateTime>,
+
     pub description: Option<String>,
     pub format: Option<String>,
     pub structure: Option<String>,
     pub duration: Option<String>,
-    pub price: Option<String>,
+    pub price: Option<i32>,
     pub language: Option<String>,
     pub level: Option<String>,
 }
@@ -22,7 +23,7 @@ pub struct Course {
 #[derive(Deserialize, Debug, Clone)]
 pub struct CreateCourse {
     pub teacher_id: i32,
-    pub name: String,
+    pub name: Option<String>,
     pub description: Option<String>,
     pub format: Option<String>,
     pub structure: Option<String>,
@@ -66,7 +67,7 @@ impl TryFrom<web::Json<CreateCourse>> for CreateCourse {
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct UpdateCourse {
-    pub name: String,
+    pub name: Option<String>,
     pub description: Option<String>,
     pub format: Option<String>,
     pub structure: Option<String>,
