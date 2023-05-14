@@ -32,7 +32,7 @@ pub async fn post_new_teacher(
 pub async fn update_teacher_details(
     app_state: web::Data<AppState>,
     params: web::Path<i32>,
-    update_teacher: web::Json<UpdateTeacher>,
+    update_teacher: web::Json<UpdateTeacher>
 ) -> Result<HttpResponse, MyError>{
     let teacher_id = params.into_inner();
     update_teacher_details_db(&app_state.db, teacher_id, UpdateTeacher::from(update_teacher)).await.map(|teacher|HttpResponse::Ok().json(teacher))
